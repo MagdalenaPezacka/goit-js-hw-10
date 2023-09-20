@@ -16,6 +16,8 @@
   border-radius: 50%;
   color: #ff3d00;
   animation: fill 1s ease-in infinite alternate;
+  display: inline-block;
+  box-sizing: border-box;
 }
 .loader::before,
 .loader::after {
@@ -43,3 +45,31 @@
     box-shadow: 0 0 0 10px inset;
   }
 }
+
+body {
+  background-color: #f3dbe6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.container {
+  padding: 15px;
+  max-width: 428px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cat-info {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+/* .box-img {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+} */

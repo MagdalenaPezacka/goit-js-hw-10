@@ -13,42 +13,44 @@ const error = document.querySelector('.error');
 // // error.classList.add('is-hidden');
 // // catInfo.classList.add('is-hidden');
 
-// let arrayBreedsId = [];
 
 selectBtn.addEventListener('change', onSelectBreed);
 
-const breedSelect = breeds => {
-  const markup = breeds
-    .map(breed => {
-      return `<option value="${breed.id}">${breed.name}</option>`;
-    })
-    .join('');
-  selectBtn.insertAdjacentHTML('beforeend', markup);
-  new SlimSelect({
-    select: '#single',
-  })
-    .catch(onFetchError)
-    .finally(() => loader.classList.remove('is-hidden'));
-};
-// const breedSelect = () => {
-//   loader.classList.add('is-hidden');
-//   selectBtn.classList.remove('is-hidden');
-//   fetchBreeds()
-//     .then(data => {
-//       data.forEach(element => {
-//         arrayBreedsId.push({ text: element.name, value: element.id });
-//       });
-//       new SlimSelect({
-//         select: '#single',
-//       });
+// const breedSelect = breeds => {
+//   const markup = breeds
+//     .map(breed => {
+//       return `<option value="${breed.id}">${breed.name}</option>`;
 //     })
+//     .join('');
+//   selectBtn.insertAdjacentHTML('beforeend', markup);
+//   new SlimSelect({
+//     select: '#single',
+//   })
 //     .catch(onFetchError)
 //     .finally(() => loader.classList.remove('is-hidden'));
 // };
 
+let arrayBreedsId = [];
+
+const breedSelect = () => {
+  loader.classList.add('is-hidden');
+  selectBtn.classList.remove('is-hidden');
+  fetchBreeds()
+    .then(data => {
+      data.forEach(element => {
+        arrayBreedsId.push({ text: element.name, value: element.id });
+      });
+      new SlimSelect({
+        select: '#single',
+      });
+    })
+    .catch(onFetchError)
+    .finally(() => loader.classList.remove('is-hidden'));
+};
+
 function onSelectBreed(event) {
-  loader.classList.remove('is-hidden');
-  selectBtn.classList.add('is-hidden');
+  loader.classList.add('is-hidden');
+  selectBtn.classList.remove('is-hidden');
   catInfo.classList.add('is-hidden');
 
   const breedId = event.currentTarget.value;
@@ -66,18 +68,15 @@ function onSelectBreed(event) {
 }
 
 function onFetchError(error) {
-  selectBtn.classList.remove('is-hidden');
-  loader.classList.replace('loader', 'is-hidden');
+  selectBtn.classList.add('is-hidden');
+  loader.classList.add('is-hidden');
 
-  Notiflix.Notify.failure(
-    'Oops! Something went wrong! Try reloading the page or select another cat breed!',
-    {
-      position: 'center-center',
-      timeout: 5000,
-      width: '400px',
-      fontSize: '24px',
-    }
-  );
+  Notiflix.Notify.failure(error, {
+    position: 'center-center',
+    timeout: 5000,
+    width: '400px',
+    fontSize: '24px',
+  });
 }
 
 //
