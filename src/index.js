@@ -15,44 +15,45 @@ const error = document.querySelector('.error');
 
 selectBtn.addEventListener('change', onSelectBreed);
 
-const breedSelect = breeds => {
-  fetchBreeds();
-  const markup = breeds
-    .map(breed => {
-      return `<option value="${breed.id}">${breed.name}</option>`;
-    })
-    .join('');
-  selectBtn.insertAdjacentHTML('beforeend', markup);
-  new SlimSelect({
-    select: '#single',
-  })
-    .catch(onFetchError)
-    .finally(() => loader.classList.remove('is-hidden'));
-};
-
-// let arrayBreedsId = [];
-
-// const breedSelect = () => {
-//   loader.classList.add('is-hidden');
-//   selectBtn.classList.remove('is-hidden');
-//   fetchBreeds()
-//     .then(data => {
-//       data.forEach(element => {
-//         arrayBreedsId.push({ text: element.name, value: element.id });
-//       });
-//       new SlimSelect({
-//         select: '#single',
-//       });
+// const breedSelect = breeds => {
+//   fetchBreeds();
+//   const markup = breeds
+//     .map(breed => {
+//       return `<option value="${breed.id}">${breed.name}</option>`;
 //     })
+//     .join('');
+//   selectBtn.insertAdjacentHTML('beforeend', markup);
+//   new SlimSelect({
+//     select: '#single',
+//   })
 //     .catch(onFetchError)
 //     .finally(() => loader.classList.remove('is-hidden'));
 // };
+
+let arrayBreedsId = [];
+
+const breedSelect = () => {
+  loader.classList.add('is-hidden');
+  selectBtn.classList.remove('is-hidden');
+  fetchBreeds()
+    .then(data => {
+      data.forEach(element => {
+        arrayBreedsId.push({ text: element.name, value: element.id });
+      });
+      new SlimSelect({
+        select: '#single',
+      });
+    })
+    .catch(onFetchError)
+    .finally(() => loader.classList.remove('is-hidden'));
+};
+document.addEventListener('DOMContentLoaded', breedSelect);
 
 function onSelectBreed(event) {
   loader.classList.add('is-hidden');
   selectBtn.classList.remove('is-hidden');
   catInfo.classList.add('is-hidden');
-  breedSelect();
+ 
   const breedId = event.currentTarget.value;
   fetchCatByBreed(breedId)
     .then(data => {
