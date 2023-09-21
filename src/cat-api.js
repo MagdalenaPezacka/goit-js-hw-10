@@ -11,14 +11,14 @@ axios.defaults.headers.common['x-api-key'] =
 
 // const axios = require('axios');
 // GET api.thecatapi.com/v1/breeds;
+
 export function fetchBreeds() {
-  axios
+  console.log(response);
+  return axios
     .get('/breeds')
     .then(response => {
-      if (response.ok) {
-        console.log(response.data);
-        return response.data;
-      }
+      console.log(response.data);
+      return response.data;
     })
     .catch(error => {
       console.log('error', error);
@@ -26,13 +26,11 @@ export function fetchBreeds() {
 }
 
 export function fetchCatByBreed(breedId) {
-  axios
+  return axios
     .get('/images/search?breed_ids=' + breedId)
     .then(response => {
-      if (response.ok) {
-        console.log(response.data);
-        return response.data;
-      }
+      console.log(response.data);
+      return response.data;
     })
     .catch(error => {
       console.log('error', error);
