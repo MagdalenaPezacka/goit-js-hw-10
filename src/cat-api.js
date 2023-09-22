@@ -12,6 +12,7 @@ axios.defaults.headers.common['x-api-key'] =
 // const axios = require('axios');
 // GET api.thecatapi.com/v1/breeds;
 
+
 export function fetchBreeds() {
   console.log(response);
   return axios
@@ -36,6 +37,31 @@ export function fetchCatByBreed(breedId) {
       console.log('error', error);
     });
 }
+
+// axios.get('https://api.thecatapi.com/v1/breeds')
+//   .then(function (response) {
+//     console.log(response);
+//   })
+//   .catch(function (error) {
+//     console.log(error);
+//   })
+
+// fetch('/api/content/all')
+//     .then(function (response) {
+//         // response jest instancją interfejsu Response
+//         if (response.status !== 200) {
+//             return Promise.reject('Zapytanie się nie powiodło');
+//         }
+ 
+//         // zwracamy obiekt typu Promise zwracający dane w postaci JSON
+//         return response.json();
+//     }
+//   )
+//    .then(this._doSomethingWithJson)
+//    .catch(this._catchError);
+
+
 // const URL = 'https://api.thecatapi.com/v1';
 // const API_KEY =
 //   'live_C9iEtPg54awJpTo4QX7RoGFsgMBvEc90dWA73rvw3AuZJatT06iGrkqCDbqdNZmr';
+

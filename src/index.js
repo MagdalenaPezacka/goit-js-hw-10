@@ -1,4 +1,4 @@
-import { fetchBreeds, fetchCatByBreed } from './cat-api';
+import { fetchBreeds, fetchCatByBreed } from "./cat-api";
 import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.css';
 import Notiflix from 'notiflix';
@@ -13,7 +13,7 @@ const error = document.querySelector('.error');
 // // error.classList.add('is-hidden');
 // // catInfo.classList.add('is-hidden');
 
-selectBtn.addEventListener('change', onSelectBreed);
+
 
 // const breedSelect = breeds => {
 //   fetchBreeds();
@@ -47,8 +47,9 @@ const breedSelect = () => {
     .catch(onFetchError)
     .finally(() => loader.classList.remove('is-hidden'));
 };
-document.addEventListener('DOMContentLoaded', breedSelect);
 
+document.addEventListener('DOMContentLoaded', breedSelect);
+selectBtn.addEventListener('change', onSelectBreed);
 function onSelectBreed(event) {
   loader.classList.add('is-hidden');
   selectBtn.classList.remove('is-hidden');
