@@ -8,33 +8,16 @@ const catInfo = document.querySelector('.cat-info');
 const loader = document.querySelector('.loader');
 const error = document.querySelector('.error');
 
-// // selectBtn.classList.add('is-hidden');
-// // loader.classList.replace('loader', 'is-hidden');
-// // error.classList.add('is-hidden');
-// // catInfo.classList.add('is-hidden');
-
-
-
-// const breedSelect = breeds => {
-//   fetchBreeds();
-//   const markup = breeds
-//     .map(breed => {
-//       return `<option value="${breed.id}">${breed.name}</option>`;
-//     })
-//     .join('');
-//   selectBtn.insertAdjacentHTML('beforeend', markup);
-//   new SlimSelect({
-//     select: '#single',
-//   })
-//     .catch(onFetchError)
-//     .finally(() => loader.classList.remove('is-hidden'));
-// };
+// selectBtn.classList.add('is-hidden');
+loader.classList.replace('loader', 'is-hidden');
+error.classList.add('is-hidden');
+// catInfo.classList.add('is-hidden');
 
 let arrayBreedsId = [];
 
 const breedSelect = () => {
-  loader.classList.add('is-hidden');
-  selectBtn.classList.remove('is-hidden');
+  // loader.classList.add('is-hidden');
+  // selectBtn.classList.remove('is-hidden');
   fetchBreeds()
     .then(data => {
       data.forEach(element => {
@@ -42,17 +25,19 @@ const breedSelect = () => {
       });
       new SlimSelect({
         select: '#single',
+        data: arrayBreedsId,
       });
     })
     .catch(onFetchError)
-    .finally(() => loader.classList.remove('is-hidden'));
+    // .finally(() => loader.classList.add('is-hidden'));
 };
 
 document.addEventListener('DOMContentLoaded', breedSelect);
-selectBtn.addEventListener('change', onSelectBreed);
+
+
 function onSelectBreed(event) {
-  loader.classList.add('is-hidden');
-  selectBtn.classList.remove('is-hidden');
+  loader.classList.replace('is-hidden', 'loader');
+  selectBtn.classList.add('is-hidden');
   catInfo.classList.add('is-hidden');
  
   const breedId = event.currentTarget.value;
@@ -66,19 +51,23 @@ function onSelectBreed(event) {
       catInfo.classList.remove('is-hidden');
     })
     .catch(onFetchError)
-    .finally(() => loader.classList.add('is-hidden'));
+    .finally(() => loader.classList.replace('loader', 'is-hidden'));
 }
 
-function onFetchError(error) {
-  selectBtn.classList.add('is-hidden');
-  loader.classList.add('is-hidden');
+selectBtn.addEventListener('change', onSelectBreed);
 
-  Notiflix.Notify.failure(error, {
+function onFetchError(error) {
+  // selectBtn.classList.add('is-hidden');
+  // loader.classList.add('is-hidden');
+
+  Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!', {
     position: 'center-center',
-    timeout: 5000,
+    timeout: 3000,
     width: '400px',
     fontSize: '24px',
+
   });
+  selectBtn.classList.remove('is-hidden')
 }
 
 //
@@ -107,3 +96,18 @@ function onFetchError(error) {
 //   textOutput.textContent = selectedOptionText;
 //   valueOutput.textContent = selectedOptionValue;
 // }
+
+// const breedSelect = breeds => {
+//   fetchBreeds();
+//   const markup = breeds
+//     .map(breed => {
+//       return `<option value="${breed.id}">${breed.name}</option>`;
+//     })
+//     .join('');
+//   selectBtn.insertAdjacentHTML('beforeend', markup);
+//   new SlimSelect({
+//     select: '#single',
+//   })
+//     .catch(onFetchError)
+//     .finally(() => loader.classList.remove('is-hidden'));
+// };

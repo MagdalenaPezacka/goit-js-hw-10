@@ -1,20 +1,20 @@
 import axios from 'axios';
 
 // const KEY =
-//   'live_6g926rqVKnrXSE0Drtte1twlvfw3415pXypm2tr8aqQ1j76pyKlZjr9jxO7NVfuL';
+//   'live_lpcEIuRV1o0kxi03DTtdluT1YxQr8PKJO2uXyOvAiSx6k84lp4slwEveDCMrENxS';
 
 // const URL = 'https://api.thecatapi.com/v1';
 
 axios.defaults.baseURL = 'https://api.thecatapi.com/v1';
 axios.defaults.headers.common['x-api-key'] =
-  'live_6g926rqVKnrXSE0Drtte1twlvfw3415pXypm2tr8aqQ1j76pyKlZjr9jxO7NVfuL';
+  "live_lpcEIuRV1o0kxi03DTtdluT1YxQr8PKJO2uXyOvAiSx6k84lp4slwEveDCMrENxS";
 
 // const axios = require('axios');
 // GET api.thecatapi.com/v1/breeds;
 
 
 export function fetchBreeds() {
-  console.log(response);
+  // console.log(response);
   return axios
     .get('/breeds')
     .then(response => {
@@ -28,7 +28,7 @@ export function fetchBreeds() {
 
 export function fetchCatByBreed(breedId) {
   return axios
-    .get('/images/search?breed_ids=' + breedId)
+    .get('/images/search?breed_ids='+ breedId)
     .then(response => {
       console.log(response.data);
       return response.data;
