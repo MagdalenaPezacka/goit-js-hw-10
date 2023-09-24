@@ -13,10 +13,10 @@ loader.classList.replace('loader', 'is-hidden');
 error.classList.add('is-hidden');
 // catInfo.classList.add('is-hidden');
 
-let arrayBreedsId = [];
+let arrayBreedsId = [{'placeholder': true, 'text': ''}];
 
 const breedSelect = () => {
-  // loader.classList.add('is-hidden');
+// loader.classList.replace('loader', 'is-hidden');
   // selectBtn.classList.remove('is-hidden');
   fetchBreeds()
     .then(data => {
@@ -25,7 +25,7 @@ const breedSelect = () => {
       });
       new SlimSelect({
         select: '#single',
-        data: arrayBreedsId,
+        data: arrayBreedsId
       });
     })
     .catch(onFetchError)
@@ -36,23 +36,28 @@ document.addEventListener('DOMContentLoaded', breedSelect);
 
 
 function onSelectBreed(event) {
-  loader.classList.replace('is-hidden', 'loader');
+ 
   selectBtn.classList.add('is-hidden');
   catInfo.classList.add('is-hidden');
- 
-  const breedId = event.currentTarget.value;
-  fetchCatByBreed(breedId)
-    .then(data => {
-      // loader.classList.replace('loader', 'is-hidden');
-      // select.classList.remove('is-hidden');
-      const { url, breeds } = data[0];
 
-      catInfo.innerHTML = `<div class="box-img"><img src="${url}" alt="${breeds[0].name}" width="400"/></div><div class="box"><h1>${breeds[0].name}</h1><p>${breeds[0].description}</p><p><b>Temperament:</b> ${breeds[0].temperament}</p></div>`;
-      catInfo.classList.remove('is-hidden');
-    })
-    .catch(onFetchError)
-    .finally(() => loader.classList.replace('loader', 'is-hidden'));
-}
+  const breedId = event.currentTarget.value;
+
+    if (breedId !== '') {
+       loader.classList.replace('is-hidden', 'loader');
+        fetchCatByBreed(breedId)
+        .then(data => {
+          loader.classList.replace('loader', 'is-hidden');
+          // select.classList.remove('is-hidden');
+          const { url, breeds } = data[0];
+
+          catInfo.innerHTML = `<div class="box-img"><img src="${url}" alt="${breeds[0].name}" width="400"/></div><div class="box"><h1>${breeds[0].name}</h1><p>${breeds[0].description}</p><p><b>Temperament:</b> ${breeds[0].temperament}</p></div>`;
+          catInfo.classList.remove('is-hidden');
+        })
+        .catch(onFetchError)
+        .finally(() => loader.classList.replace('loader', 'is-hidden'));
+    }
+  }
+
 
 selectBtn.addEventListener('change', onSelectBreed);
 
@@ -69,6 +74,7 @@ function onFetchError(error) {
   });
   selectBtn.classList.remove('is-hidden')
 }
+
 
 //
 //konspekt
